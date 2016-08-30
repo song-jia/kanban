@@ -3,6 +3,7 @@ import uuid from 'uuid';
 import Notes from './Notes';
 
 export default class App extends React.Component {
+
   constructor(props) {
     super(props);
     this.state = {
@@ -24,7 +25,11 @@ export default class App extends React.Component {
     return (
       <div>
         <button onClick={this.addNote}>+</button>
-        <Notes notes={notes} onDelete={this.deleteNote} />
+        <Notes
+          notes={notes}
+          onNoteClick={this.activateNoteEdit}
+          onDelete={this.deleteNote}
+          onEdit={this.editNote} />
       </div>
     );
   }
@@ -43,6 +48,29 @@ export default class App extends React.Component {
     e.stopPropagation();
     this.setState({
       notes: this.state.notes.filter(note => note.id !== id)
+    });
+  }
+
+  activateNoteEdit = (id) => {
+    this.setState({
+      notes: this.state.notes.map(note => {
+        if (note.id === id) {
+          note.editing = true;
+        }
+        return note;
+      })
+    });
+  }
+
+  editNote = (id, value) => {
+    this.setState({
+      notes: this.state.notes.map(note => {
+        if (note.id === id) {
+          note.editing = false;
+          note.task = value;
+        }
+        return note;
+      })
     });
   }
 
