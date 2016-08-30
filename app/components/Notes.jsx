@@ -6,16 +6,19 @@ export default ({notes,
   onNoteClick = () => {},
   onDelete = () => {},
   onEdit = () => {}}) => (
-  <ul>
+  <ul className='notes'>
   {
     notes.map(({id, task, editing}) =>
       <li key={id}>
-        <Note onClick={onNoteClick.bind(null, id)}>
+        <Note className='note' onClick={onNoteClick.bind(null, id)}>
           <Editable
+            className='editable'
             onEdit={onEdit.bind(null, id)}
             editing={editing}
             value={task}/>
-          <button onClick={onDelete.bind(null, id)}>x</button>
+          <button
+            className='delete'
+            onClick={onDelete.bind(null, id)}>x</button>
         </Note>
       </li>
     )

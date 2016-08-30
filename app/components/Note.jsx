@@ -1,7 +1,7 @@
 import React from 'react';
 
-export default ({children, onClick}) => (
-  <div onClick={onClick}>
+export default ({children, onClick, className}) => (
+  <div className={className} onClick={onClick}>
     {children}
   </div>
 );
