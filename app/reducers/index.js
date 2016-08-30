@@ -5,18 +5,7 @@ import {
   ACTIVATE_NOTE_EDIT,
   EDIT_NOTE} from '../actions';
 
-const app = (state = {
-  notes: [
-    {
-      id: uuid.v4(),
-      task: 'Learn React'
-    },
-    {
-      id: uuid.v4(),
-      task: 'Do laundry'
-    }
-  ]
-}, action) => {
+const app = (state, action) => {
   switch (action.type) {
     case ADD_NOTE:
     return addNote(state, action);
@@ -32,9 +21,10 @@ const app = (state = {
 }
 
 function addNote (state, action) {
+  let notes = state.notes || [];
   return {
     ...state,
-    notes: state.notes.concat([{
+    notes: notes.concat([{
       id: uuid.v4(),
       task: 'New task'
     }])

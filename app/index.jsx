@@ -1,19 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from './containers/App';
-import {createStore} from 'redux';
-import {Provider} from 'react-redux';
-import reducers from './reducers';
+import Root from './containers/Root.jsx';
+import configureStore from './store/configureStore';
+import storage from './libs/storage';
 
-if(process.env.NODE_ENV !== 'production') {
-  React.Perf = require('react-addons-perf');
-}
+const APP_STORAGE = 'redux_kanban';
 
-let store = createStore(reducers);
+const store = configureStore(storage.get(APP_STORAGE) || {});
+
+store.subscribe(() => {
+  if(!storage.get('debug')) {
+    storage.set(APP_STORAGE, store.getState());
+  }
+});
 
 ReactDOM.render(
-  <Provider store={store}>
-    <App />
-  </Provider>,
+  <Root store={store} />,
   document.getElementById('app')
 );

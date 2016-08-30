@@ -2,7 +2,7 @@ import React from 'react';
 import Note from './Note';
 import Editable from './Editable';
 
-export default ({notes,
+export default ({notes = [],
   onNoteClick = () => {},
   onDelete = () => {},
   onEdit = () => {}}) => (
