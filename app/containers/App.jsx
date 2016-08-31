@@ -1,7 +1,10 @@
-import React from 'react';
-import Lanes from '../components/Lanes';
-import {connect} from 'react-redux';
 import {addLane} from '../actions';
+import {compose} from 'redux';
+import {connect} from 'react-redux';
+import {DragDropContext} from 'react-dnd';
+import HTML5Backend from 'react-dnd-html5-backend';
+import Lanes from '../components/Lanes';
+import React from 'react';
 
 class App extends React.Component {
 
@@ -35,4 +38,8 @@ function mapDispatchToProps (dispatch) {
   };
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default compose(
+  DragDropContext(HTML5Backend),
+  connect(mapStateToProps, mapDispatchToProps)
+)(App);
+
