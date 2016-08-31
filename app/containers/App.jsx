@@ -1,22 +1,17 @@
 import React from 'react';
-import uuid from 'uuid';
-import Notes from '../components/Notes';
+import Lanes from '../components/Lanes';
 import {connect} from 'react-redux';
-import {addNote, deleteNote, activateNoteEdit, editNote} from '../actions';
+import {addLane} from '../actions';
 
 class App extends React.Component {
 
   render() {
-    const {notes} = this.props;
+    const {lanes} = this.props;
 
     return (
       <div>
-        <button onClick={this.props.addNote} className='add-note'>+</button>
-        <Notes
-          notes={notes}
-          onNoteClick={this.props.activateNoteEdit}
-          onDelete={this.deleteNote}
-          onEdit={this.props.editNote} />
+        <button onClick={this.props.addLane} className='add-note'>New Lane</button>
+        <Lanes lanes={lanes}/>
       </div>
     );
   }
@@ -34,17 +29,8 @@ function mapStateToProps (state) {
 
 function mapDispatchToProps (dispatch) {
   return {
-    addNote () {
-      dispatch(addNote());
-    },
-    deleteNote (id) {
-      dispatch(deleteNote(id));
-    },
-    activateNoteEdit (id) {
-      dispatch(activateNoteEdit(id));
-    },
-    editNote (id, task) {
-      dispatch(editNote(id, task));
+    addLane() {
+      dispatch(addLane());
     }
   };
 }

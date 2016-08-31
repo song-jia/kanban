@@ -1,7 +1,8 @@
 import React from 'react';
 
-export default ({children, onClick, className}) => (
+const Note = ({children, onClick, className}) => (
   <div className={className} onClick={onClick}>
     {children}
   </div>
 );
+export default Note;

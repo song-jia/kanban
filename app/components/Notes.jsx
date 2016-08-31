@@ -2,7 +2,7 @@ import React from 'react';
 import Note from './Note';
 import Editable from './Editable';
 
-export default ({notes = [],
+const Notes = ({notes = [],
   onNoteClick = () => {},
   onDelete = () => {},
   onEdit = () => {}}) => (
@@ -24,4 +24,14 @@ export default ({notes = [],
     )
   }
   </ul>
-)
+);
+
+Notes.propTypes = {
+  notes: React.PropTypes.array,
+  onNoteClick: React.PropTypes.func,
+  onDelete: React.PropTypes.func,
+  onEdit: React.PropTypes.func
+};
+
+
+export default Notes;
