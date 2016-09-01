@@ -1,15 +1,17 @@
+import {compose} from 'redux';
+import {DropTarget} from 'react-dnd';
 import React from 'react';
 import Notes from './Notes';
 import LaneHeader from './LaneHeader';
 import {activateNoteEdit, editNote,deleteNote, detachNoteFromLane,
-  deleteLane} from '../actions';
+  deleteLane, moveNote, attachNoteToLane} from '../actions';
 import {connect} from 'react-redux';
 
 class Lane extends React.Component {
 
   render() {
-    const {lane, laneNotes} = this.props;
-    return (
+    const {lane, laneNotes, connectDropTarget} = this.props;
+    return connectDropTarget(
       <div className='lane'>
         <LaneHeader
           lane={lane}
@@ -21,6 +23,7 @@ class Lane extends React.Component {
           onNoteClick={this.props.activateNoteEdit}
           onEdit={this.props.editNote}
           onDelete={this.onDeleteNote}
+          onMove={this.props.moveNote}
         />
       </div>
     );
@@ -80,11 +83,36 @@ function mapDispatchToProps(dispatch) {
     },
     deleteLane (id) {
       dispatch(deleteLane(id));
+    },
+    moveNote (ids) {
+      dispatch(moveNote(ids));
+    },
+    attachNoteToLane (laneId, noteId) {
+      dispatch(attachNoteToLane(laneId, noteId));
     }
   }
 }
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
+const noteTarget = {
+  hover(targetProps, monitor) {
+    const sourceProps = monitor.getItem();
+    const sourceId = sourceProps.id;
+
+    if (!targetProps.lane.notes.length) {
+      targetProps.attachNoteToLane(targetProps.lane.id, sourceId);
+    }
+  }
+}
+
+export default compose(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  ),
+  DropTarget(
+    'note',
+    noteTarget,
+    connect => ({
+      connectDropTarget: connect.dropTarget()
+    }))
 )(Lane);

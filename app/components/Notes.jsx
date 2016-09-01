@@ -5,12 +5,18 @@ import Editable from './Editable';
 const Notes = ({notes = [],
   onNoteClick = () => {},
   onDelete = () => {},
-  onEdit = () => {}}) => (
+  onEdit = () => {},
+  onMove = () => {}}) => (
   <ul className='notes'>
   {
     notes.map(({id, task, editing}) =>
       <li key={id}>
-        <Note className='note' onClick={onNoteClick.bind(null, id)}>
+        <Note
+          id={id}
+          className='note'
+          onClick={onNoteClick.bind(null, id)}
+          onMove={onMove}
+          editing={editing}>
           <Editable
             className='editable'
             onEdit={onEdit.bind(null, id)}

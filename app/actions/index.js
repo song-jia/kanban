@@ -66,3 +66,11 @@ export const deleteLane = function (id) {
     id: id
   };
 }
+export const MOVE_NOTE = 'MOVE_NOTE';
+export const moveNote = function ({sourceId, targetId}) {
+  return {
+    type: MOVE_NOTE,
+    sourceId: sourceId,
+    targetId: targetId
+  }
+}

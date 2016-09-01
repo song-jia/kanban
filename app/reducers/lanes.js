@@ -1,5 +1,5 @@
 import {ADD_LANE, ATTACH_NOTE_TO_LANE, DETACH_NOTE_FROM_LANE, UPDATE_LANE,
-   DELETE_LANE} from '../actions';
+   DELETE_LANE, MOVE_NOTE} from '../actions';
 import uuid from 'node-uuid';
 
 const lanes = (state = [], action) => {
@@ -14,6 +14,8 @@ const lanes = (state = [], action) => {
       return editLane(state, action);
     case DELETE_LANE:
       return deleteLane(state, action);
+    case MOVE_NOTE:
+      return moveNote(state, action);
     default:
       return state;
   }
@@ -77,5 +79,51 @@ function editLane (state, action) {
 
 function deleteLane (state, action) {
   return state.filter(lane => lane.id !== action.id);
+}
+
+function moveNote (state, action) {
+  const {sourceId, targetId} = action;
+  const sourceLane = state.filter(lane => lane.notes.includes(sourceId))[0];
+  const targetLane = state.filter(lane => lane.notes.includes(targetId))[0];
+  const sourceNoteIndex = sourceLane.notes.indexOf(sourceId)
+  const targetNoteIndex = targetLane.notes.indexOf(targetId);
+  if (sourceLane === targetLane) {
+    // adjust sort of notes.
+    return state.map(lane => {
+      if (lane.id !== sourceLane.id) {
+        return lane;
+      }
+      let notes = [...sourceLane.notes];
+      notes.splice(sourceNoteIndex, 1);
+      notes.splice(targetNoteIndex, 0, sourceId);
+      return {
+        ...lane,
+        notes: notes
+      }
+    });
+  } else {
+    // move note from one lane to another.
+    return state.map(lane => {
+      if (lane.id === sourceLane.id) {
+        // remove from source lane.
+        let notes = [...sourceLane.notes];
+        notes.splice(sourceNoteIndex, 1);
+        return {
+          ...lane,
+          notes: notes
+        }
+      }
+      if (lane.id === targetLane.id) {
+        // attach to target lane.
+        let notes = [...targetLane.notes];
+        notes.splice(targetNoteIndex, 0, sourceId);
+        return {
+          ...lane,
+          notes: notes
+        }
+      }
+      return lane;
+    });
+  }
 }
 export default lanes;
