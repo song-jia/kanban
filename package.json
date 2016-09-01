@@ -1,4 +1,4 @@
-{
+ {
   "name": "react-boilerplate",
   "private": true,
   "version": "2.5.6",
@@ -36,6 +36,7 @@
     "html-webpack-template": "^5.0.0",
     "isparta-instrumenter-loader": "^1.0.0",
     "karma": "^0.13.22",
+    "karma-chrome-launcher": "^2.0.0",
     "karma-coverage": "^1.0.0",
     "karma-mocha": "^1.0.1",
     "karma-phantomjs-launcher": "^1.0.0",

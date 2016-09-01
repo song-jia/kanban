@@ -3,15 +3,14 @@ import React from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
 
 const Note = ({connectDragSource, connectDropTarget, onMove, id, children,
-  onClick, className, isDragging, isOver, editing}) => {
+  className, isDragging, isOver, editing}) => {
   const dragSource = editing ?
           a => a // cannot drag while editing
           : connectDragSource;
   return compose(dragSource, connectDropTarget)(
     <div
       style={{opacity: isDragging || isOver ? 0 : 1}}
-      className={className}
-      onClick={onClick}>
+      className={className}>
       {children}
     </div>
   )

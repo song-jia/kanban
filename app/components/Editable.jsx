@@ -1,15 +1,19 @@
 import React from 'react';
 import classnames from 'classnames';
 
-const Editable = ({editing, value, className, onEdit}) => {
-  if (editing) {
-    return <Edit
-      className={className}
-      value={value}
-      onEdit={onEdit} />;
+class Editable extends React.Component {
+  render() {
+    const {editing, value, className, onEdit, onValueClick} = this.props;
+    if (editing) {
+      return <Edit
+        className={className}
+        value={value}
+        onEdit={onEdit} />;
+    }
+    return <span onClick={onValueClick} className={classnames('value', className)}>{value}</span>;
   }
-  return <span className={classnames('value', className)}>{value}</span>;
 }
+
 export default Editable;
 
 class Edit extends React.Component {

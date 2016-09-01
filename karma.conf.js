@@ -34,14 +34,17 @@ module.exports = function karmaConfig (config) {
     },
 
     browsers: [
-      // Run tests using PhantomJS
+      // Run test using 'phantomjs'
       'PhantomJS'
+      // Run tests using 'Chrome'
+      // 'Chrome'
     ],
 
     singleRun: true,
 
     // Configure code coverage reporter
     coverageReporter: {
+      includeAllSources: true,
       dir: 'coverage/',
       type: 'html'
     },

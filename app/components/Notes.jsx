@@ -14,11 +14,11 @@ const Notes = ({notes = [],
         <Note
           id={id}
           className='note'
-          onClick={onNoteClick.bind(null, id)}
           onMove={onMove}
           editing={editing}>
           <Editable
             className='editable'
+            onValueClick={onNoteClick.bind(null, id)}
             onEdit={onEdit.bind(null, id)}
             editing={editing}
             value={task}/>
