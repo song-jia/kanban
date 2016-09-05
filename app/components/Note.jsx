@@ -2,19 +2,23 @@ import {compose} from 'redux';
 import React from 'react';
 import {DragSource, DropTarget} from 'react-dnd';
 
-const Note = ({connectDragSource, connectDropTarget, onMove, id, children,
-  className, isDragging, isOver, editing}) => {
-  const dragSource = editing ?
-          a => a // cannot drag while editing
-          : connectDragSource;
-  return compose(dragSource, connectDropTarget)(
-    <div
-      style={{opacity: isDragging || isOver ? 0 : 1}}
-      className={className}>
-      {children}
-    </div>
-  )
-};
+class Note extends React.Component {
+  render() {
+    const {connectDragSource, connectDropTarget, onMove, id, children,
+      className, isDragging, isOver, editing} = this.props;
+
+    const dragSource = editing ?
+      a => a // cannot drag while editing
+      : connectDragSource;
+    return compose(dragSource, connectDropTarget)(
+      <div
+        style={{opacity: isDragging || isOver ? 0 : 1}}
+        className={className}>
+        {children}
+      </div>
+    )
+  }
+}
 
 const noteSource = {
   beginDrag(props) {

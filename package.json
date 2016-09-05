@@ -1,4 +1,4 @@
- {
+{
   "name": "react-boilerplate",
   "private": true,
   "version": "2.5.6",
@@ -24,6 +24,7 @@
     "babel-preset-react": "^6.5.0",
     "babel-preset-react-hmre": "^1.1.1",
     "babel-preset-survivejs-kanban": "^0.3.3",
+    "chai": "^3.5.0",
     "clean-webpack-plugin": "^0.1.9",
     "css-loader": "^0.23.1",
     "eslint": "2.10.2",
@@ -49,6 +50,7 @@
     "phantomjs-prebuilt": "^2.1.7",
     "react-addons-perf": "^15.1.0",
     "react-addons-test-utils": "^15.1.0",
+    "react-dnd-test-backend": "^1.0.2",
     "redux-devtools": "^3.3.1",
     "style-loader": "^0.13.1",
     "webpack": "^1.13.1",

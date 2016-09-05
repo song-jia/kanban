@@ -21,10 +21,10 @@ const lanes = (state = [], action) => {
   }
 };
 
-function addLane(state) {
+function addLane(state, action) {
   return state.concat({
-    id: uuid.v4(),
-    name: 'new Lane',
+    id: action.id,
+    name: 'new lane',
     notes: []
   });
 }

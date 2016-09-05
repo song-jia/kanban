@@ -32,7 +32,8 @@ export const editNote = function (id, task) {
 export const ADD_LANE = 'ADD_LANE';
 export const addLane = function () {
   return {
-    type: ADD_LANE
+    type: ADD_LANE,
+    id: uuid.v4()
   };
 };
 export const ATTACH_NOTE_TO_LANE = 'ATTACH_NOTE_TO_LANE';
